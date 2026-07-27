@@ -131,7 +131,7 @@ export function Header(): JSX.Element {
           <button
             type="button"
             onClick={toggleTheme}
-            className="hidden h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-paper-2 sm:inline-flex"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-paper-2"
             aria-label={
               theme === "light" ? "Switch to dark" : "Switch to light"
             }

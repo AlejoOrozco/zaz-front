@@ -46,7 +46,7 @@ function getLocaleSnapshot(): Locale {
 }
 
 function getThemeSnapshot(): Theme {
-  return window.localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
+  return window.localStorage.getItem(THEME_KEY) === "light" ? "light" : "dark";
 }
 
 function getServerLocale(): Locale {
@@ -54,7 +54,7 @@ function getServerLocale(): Locale {
 }
 
 function getServerTheme(): Theme {
-  return "light";
+  return "dark";
 }
 
 export function SiteProvider({
