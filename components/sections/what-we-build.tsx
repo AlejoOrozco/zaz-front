@@ -64,14 +64,14 @@ const copy = {
   en: {
     headline: "If you can describe it, I can build it.",
     lead: "I build",
-    closing: "Don't see yours? That's the point   tell me.",
+    closing: "Don't see yours? That's the point, tell me.",
     features: [
       {
         id: "animated-web-pages",
         phrase: "animated web pages",
         label: "Animated web pages",
         description:
-          "Sites with motion that feels intentional   presence, not noise.",
+          "Sites with motion that feels intentional, presence, not noise.",
       },
       {
         id: "web-pages",
@@ -92,28 +92,28 @@ const copy = {
         phrase: "personalized software",
         label: "Personalized software",
         description:
-          "Tools shaped around your process   never a reused template.",
+          "Tools shaped around your process, never a reused template.",
       },
       {
         id: "ai-agents",
         phrase: "AI agents",
         label: "AI agents",
         description:
-          "Agents that handle real work inside your workflows, not demos.",
+          "Agents that handle real work inside your workflows.",
       },
     ] satisfies FeatureCopy[],
   },
   es: {
     headline: "Si puedes describirlo, puedo construirlo.",
     lead: "Construyo",
-    closing: "¿No ves lo tuyo? De eso se trata   cuéntame.",
+    closing: "¿No ves lo tuyo? De eso se trata, cuéntame.",
     features: [
       {
         id: "animated-web-pages",
         phrase: "páginas web animadas",
         label: "Páginas web animadas",
         description:
-          "Sitios con movimiento intencional   presencia, no ruido.",
+          "Sitios con movimiento intencional, presencia, no ruido.",
       },
       {
         id: "web-pages",
@@ -134,14 +134,14 @@ const copy = {
         phrase: "software a la medida",
         label: "Software a la medida",
         description:
-          "Herramientas hechas a tu proceso   nunca una plantilla reciclada.",
+          "Herramientas hechas a tu proceso, nunca una plantilla reciclada.",
       },
       {
         id: "ai-agents",
         phrase: "agentes de IA",
         label: "Agentes de IA",
         description:
-          "Agentes que hacen trabajo real en tus flujos, no demos.",
+            "Agentes que hacen trabajo real en tus flujos.",
       },
     ] satisfies FeatureCopy[],
   },

@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  useId,
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
   type CSSProperties,
@@ -9,55 +8,6 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/utils";
-
-/** Sparse starfield dots on the button face. */
-function StarField({ color }: { color: string }): JSX.Element {
-  const clipId = useId().replace(/:/g, "");
-
-  return (
-    <svg
-      width="100%"
-      height="100%"
-      preserveAspectRatio="none"
-      viewBox="0 0 100 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-[3]"
-    >
-      <g clipPath={`url(#${clipId})`} fill={color} opacity={0.85}>
-        <circle cx="7.5" cy="12.5" r="0.66" />
-        <circle cx="7.5" cy="24.34" r="0.66" />
-        <circle cx="7.5" cy="32.86" r="0.66" />
-        <circle cx="16" cy="5.52" r="0.66" />
-        <circle cx="18.66" cy="18.48" r="0.66" />
-        <circle cx="21.66" cy="34.18" r="0.66" />
-        <circle cx="31.68" cy="26.68" r="0.66" />
-        <circle cx="32.34" cy="9.34" r="0.66" />
-        <circle cx="34.5" cy="35.5" r="0.66" />
-        <circle cx="40.26" cy="17.82" r="0.66" />
-        <circle cx="45.54" cy="7.26" r="0.66" />
-        <circle cx="47.84" cy="28.66" r="0.66" />
-        <circle cx="53.5" cy="36.84" r="0.66" />
-        <circle cx="55.624" cy="16.5" r="0.66" />
-        <circle cx="56.1" cy="4.62" r="0.66" />
-        <circle cx="60.34" cy="28" r="0.66" />
-        <circle cx="69" cy="21.16" r="0.66" />
-        <circle cx="74.58" cy="5.94" r="0.66" />
-        <circle cx="77.5" cy="34.84" r="0.66" />
-        <circle cx="79.86" cy="15.18" r="0.66" />
-        <circle cx="85.66" cy="25" r="0.66" />
-        <circle cx="90.66" cy="10" r="0.66" />
-        <circle cx="91.98" cy="34.84" r="0.66" />
-      </g>
-      <defs>
-        <clipPath id={clipId}>
-          <rect width="100" height="40" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
 
 type StarButtonBaseProps = {
   children: ReactNode;
@@ -75,7 +25,7 @@ type StarButtonAsButton = StarButtonBaseProps &
 type StarButtonAsLink = StarButtonBaseProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
-export type StarButtonProps = StarButtonAsButton | StarButtonAsLink;
+type StarButtonProps = StarButtonAsButton | StarButtonAsLink;
 
 export function StarButton({
   children,
@@ -87,7 +37,6 @@ export function StarButton({
   ...props
 }: StarButtonProps): JSX.Element {
   const faceBg = darkFace ? "#0a0a0a" : "#fafafa";
-  const starColor = darkFace ? "rgba(255,255,255,0.9)" : "rgba(0,0,0,0.55)";
   const rimColor = darkFace
     ? "rgba(255,255,255,0.14)"
     : "rgba(0,0,0,0.1)";
@@ -106,7 +55,6 @@ export function StarButton({
 
   const content = (
     <>
-      {/* Soft rotating highlight   full layer, then covered in the center */}
       <span
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit]"
         aria-hidden="true"
@@ -119,7 +67,6 @@ export function StarButton({
         />
       </span>
 
-      {/* Covers the pie-slice; leaves only an inner ring of the glow */}
       <span
         className="pointer-events-none absolute z-[1] rounded-[inherit]"
         style={{
@@ -134,8 +81,6 @@ export function StarButton({
         style={{ boxShadow: `inset 0 0 0 1px ${rimColor}` }}
         aria-hidden="true"
       />
-
-      <StarField color={starColor} />
 
       <span
         className={cn(

@@ -1,4 +1,3 @@
-import type { gsap } from "gsap";
 import {
   ensureGsap,
   prefersReducedMotion,
@@ -9,7 +8,7 @@ type TweenTarget = string | Element | Element[] | NodeListOf<Element>;
 export function idleFloat(
   targets: TweenTarget,
   options: { y?: number; duration?: number; delay?: number } = {},
-): gsap.core.Tween | null {
+): ReturnType<ReturnType<typeof ensureGsap>["to"]> | null {
   if (prefersReducedMotion()) return null;
 
   const gsapInstance = ensureGsap();

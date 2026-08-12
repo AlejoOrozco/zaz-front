@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 
 interface ZazLogoProps {
   className?: string;
-  markClassName?: string;
   href?: string;
 }
 
@@ -14,7 +13,6 @@ interface ZazLogoProps {
  */
 export function ZazLogo({
   className,
-  markClassName,
   href = "#top",
 }: ZazLogoProps): JSX.Element {
   return (
@@ -26,7 +24,7 @@ export function ZazLogo({
       )}
       aria-label="zaz home"
     >
-      <ZazMark className={cn("h-5 w-auto", markClassName)} />
+      <ZazMark className="h-5 w-auto" />
       <span className="font-sans text-lg font-semibold tracking-tight">
         zaz
       </span>

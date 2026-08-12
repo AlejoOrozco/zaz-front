@@ -139,7 +139,12 @@ export function Header(): JSX.Element {
             {theme === "light" ? "◐" : "◑"}
           </button>
 
-          <BookCallButton href="#book">{t.book}</BookCallButton>
+          <BookCallButton
+            href="#book"
+            className="hidden md:inline-flex"
+          >
+            {t.book}
+          </BookCallButton>
         </div>
       </div>
     </header>

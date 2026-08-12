@@ -15,7 +15,6 @@ const copy = {
     offer: "What I offer",
     founder: "Founder",
     book: "Book a call",
-    email: "hello@zaz.dev",
     founded: "Founded by Alejandro Gómez Orozco",
   },
   es: {
@@ -27,7 +26,6 @@ const copy = {
     offer: "Lo que ofrezco",
     founder: "Fundador",
     book: "Agenda una llamada",
-    email: "hello@zaz.dev",
     founded: "Fundada por Alejandro Gómez Orozco",
   },
 } as const;
@@ -94,21 +92,13 @@ export function Footer(): JSX.Element {
           </p>
           <ul className="mt-4 space-y-2 text-sm text-ink-2">
             <li>
-              <a
-                href={`mailto:${t.email}`}
-                className="transition-colors hover:text-ink"
-              >
-                {t.email}
+              <a href="#contact" className="transition-colors hover:text-ink">
+                {t.contact}
               </a>
             </li>
             <li>
-              <a
-                href="https://calendly.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-ink"
-              >
-                Calendly
+              <a href="#book" className="transition-colors hover:text-ink">
+                {t.book}
               </a>
             </li>
           </ul>

@@ -2,13 +2,11 @@
 
 import { useEffect, useRef, type JSX } from "react";
 
-export type EntropyTheme = "light" | "dark";
-
 interface EntropyProps {
   className?: string;
   size?: number;
   /** Matches site theme: light = black particles on white; dark = white on black. */
-  theme?: EntropyTheme;
+  theme?: "light" | "dark";
 }
 
 /**

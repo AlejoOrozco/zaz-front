@@ -14,19 +14,19 @@ const copy = {
     items: [
       {
         title: "The best I can do for your budget",
-        body: "You tell me the budget. I tell you what's possible inside it — no open-ended invoices.",
+        body: "You tell me the budget. I tell you what's possible inside it   no open-ended invoices.",
       },
       {
         title: "Don't like it? Your money back",
         body: "If it isn't what we agreed, you don't pay. The risk is on me, not you.",
       },
       {
-        title: "Personalized — and only yours",
+        title: "Personalized   and only yours",
         body: "I don't resell the same software. What you get is unique. You won't see it out there on someone else.",
       },
       {
         title: "Something you can really use",
-        body: "I make sure you get what you want — practical, clear, and built to work in your day-to-day.",
+        body: "I make sure you get what you want   practical, clear, and built to work in your day-to-day.",
       },
     ],
   },
@@ -36,19 +36,19 @@ const copy = {
     items: [
       {
         title: "Lo mejor que puedo hacer con tu presupuesto",
-        body: "Tú dices el presupuesto. Yo te digo qué es posible dentro de él — sin facturas abiertas.",
+        body: "Tú dices el presupuesto. Yo te digo qué es posible dentro de él   sin facturas abiertas.",
       },
       {
         title: "¿No te gusta? Te devuelvo el dinero",
         body: "Si no es lo acordado, no pagas. El riesgo es mío, no tuyo.",
       },
       {
-        title: "Personalizado — y solo tuyo",
+        title: "Personalizado   y solo tuyo",
         body: "No revendo el mismo software. Lo que recibes es único. No lo verás en nadie más.",
       },
       {
         title: "Algo que sí puedes usar",
-        body: "Me aseguro de que obtengas lo que quieres — práctico, claro y útil en tu día a día.",
+        body: "Me aseguro de que obtengas lo que quieres   práctico, claro y útil en tu día a día.",
       },
     ],
   },
@@ -85,17 +85,13 @@ export function WhatIOffer(): JSX.Element {
     }
 
     const ctx = gsap.context(() => {
-      gsap.set(steps, {
-        autoAlpha: 0,
-        scale: 0.88,
-        transformOrigin: "left center",
-      });
-      gsap.set(steps[0], { autoAlpha: 1, scale: 1 });
+      gsap.set(steps, { autoAlpha: 0 });
+      gsap.set(steps[0], { autoAlpha: 1 });
       if (progress) gsap.set(progress, { scaleX: 0, transformOrigin: "left" });
 
-      const zoom = 0.5;
+      const fade = 0.5;
       const hold = 0.4;
-      const totalDuration = (stepCount - 1) * (zoom + hold) + hold;
+      const totalDuration = (stepCount - 1) * (fade + hold) + hold;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -132,30 +128,28 @@ export function WhatIOffer(): JSX.Element {
         }
 
         const prev = steps[index - 1];
-        const at = index * (zoom + hold) - zoom;
+        const at = index * (fade + hold) - fade;
 
         tl.to(
           prev,
           {
             autoAlpha: 0,
-            scale: 1.12,
-            duration: zoom,
-            ease: "power2.in",
+            duration: fade,
+            ease: "power1.inOut",
           },
           at,
         );
         tl.fromTo(
           step,
-          { autoAlpha: 0, scale: 0.88 },
+          { autoAlpha: 0 },
           {
             autoAlpha: 1,
-            scale: 1,
-            duration: zoom,
-            ease: "power2.out",
+            duration: fade,
+            ease: "power1.inOut",
           },
           at,
         );
-        tl.to({}, { duration: hold }, at + zoom);
+        tl.to({}, { duration: hold }, at + fade);
       });
     }, section);
 
@@ -190,7 +184,7 @@ export function WhatIOffer(): JSX.Element {
                 <div
                   key={item.title}
                   data-offer-step
-                  className="absolute inset-0 flex flex-col justify-center will-change-transform"
+                  className="absolute inset-0 flex flex-col justify-center"
                   aria-hidden={index === 0 ? undefined : true}
                 >
                   <span
@@ -225,7 +219,7 @@ export function WhatIOffer(): JSX.Element {
               />
             </div>
             <p
-              className="shrink-0 font-mono text-[0.75rem] tabular-nums tracking-[0.14em] text-ink-3"
+              className="shrink-0 text-[0.75rem] tabular-nums tracking-[0.14em] text-ink-3"
               aria-hidden="true"
             >
               <span ref={counterRef}>01</span>

@@ -9,8 +9,6 @@ interface BookCallButtonProps {
   children: ReactNode;
   href?: string;
   className?: string;
-  external?: boolean;
-  surface?: "default" | "invert";
 }
 
 /**
@@ -22,12 +20,9 @@ export function BookCallButton({
   children,
   href = "#book",
   className,
-  external = false,
-  surface = "default",
 }: BookCallButtonProps): JSX.Element {
   const { theme } = useSite();
-  const pageIsDark = theme === "dark";
-  const darkFace = surface === "invert" ? pageIsDark : !pageIsDark;
+  const darkFace = theme !== "dark";
 
   return (
     <StarButton
@@ -35,9 +30,6 @@ export function BookCallButton({
       darkFace={darkFace}
       lightColor={darkFace ? "#FAFAFA" : "#0A0A0A"}
       className={cn("h-11 px-6", className)}
-      {...(external
-        ? { target: "_blank", rel: "noopener noreferrer" }
-        : {})}
     >
       {children}
     </StarButton>

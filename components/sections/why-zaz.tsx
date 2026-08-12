@@ -42,16 +42,16 @@ const copy = {
         body: "Elige un horario. Así empieza todo.",
       },
       {
-        title: "Me cuentas el problema   y tu presupuesto",
-        body: "Qué duele, qué necesitas y cuánto puedes invertir. Claro y directo.",
+        title: "Me cuentas el problema y tu presupuesto",
+        body: "Qué necesitas y cuanto estás dispuesto a invertir.",
       },
       {
         title: "Te muestro la solución para ese presupuesto",
-        body: "Sin promesas vacías. Un plan real que cabe en lo que puedes invertir.",
+        body: "Sin promesas falsas. Un plan real que seguiré basado en tu presupuesto.",
       },
       {
         title: "Yo creo. Tú solo ves el progreso",
-        body: "Yo lo construyo. Tú ves cómo toma forma   sin el ruido.",
+        body: "Yo lo construyo. Tú ves cómo toma forma.",
       },
     ],
   },
