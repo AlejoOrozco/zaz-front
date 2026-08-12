@@ -35,9 +35,8 @@ export function Header(): JSX.Element {
 
     const gsap = ensureGsap();
     const reduced = prefersReducedMotion();
-    let lastY = 0;
-    let hidden = false;
 
+    // Entrance only — hide/show is CSS so it never fights GSAP transforms.
     const ctx = gsap.context(() => {
       gsap.from(header.querySelectorAll(":scope > *"), {
         opacity: 0,
@@ -45,32 +44,85 @@ export function Header(): JSX.Element {
         duration: 0.7,
         ease: "power3.out",
         delay: 0.05,
+        clearProps: "transform",
       });
     }, header);
 
-    const onScroll = (): void => {
-      const y = window.scrollY;
-      const pastHero = y > 80;
-      header.classList.toggle("header-solid", pastHero);
+    if (reduced) {
+      const onScrollSolid = (): void => {
+        header.classList.toggle("header-solid", window.scrollY > 80);
+      };
+      window.addEventListener("scroll", onScrollSolid, { passive: true });
+      onScrollSolid();
+      return () => {
+        window.removeEventListener("scroll", onScrollSolid);
+        ctx.revert();
+      };
+    }
 
-      if (reduced) {
+    // Need sustained travel in one direction before toggling (kills jitter).
+    const HIDE_AFTER_PX = 72;
+    const SHOW_AFTER_PX = 56;
+    const ALWAYS_SHOW_BELOW = 96;
+    const JITTER_PX = 2;
+
+    let lastY = Math.max(0, window.scrollY);
+    let accumulated = 0;
+    let hidden = false;
+    let ticking = false;
+
+    const applyHidden = (next: boolean): void => {
+      if (hidden === next) return;
+      hidden = next;
+      header.classList.toggle("header-hidden", hidden);
+      accumulated = 0;
+    };
+
+    const update = (): void => {
+      ticking = false;
+      const y = Math.max(0, window.scrollY);
+      header.classList.toggle("header-solid", y > 80);
+
+      if (y <= ALWAYS_SHOW_BELOW) {
+        applyHidden(false);
         lastY = y;
+        accumulated = 0;
         return;
       }
 
-      if (y > lastY + 6 && y > 140 && !hidden) {
-        hidden = true;
-        gsap.to(header, { y: -100, duration: 0.35, ease: "power2.out" });
-      } else if (y < lastY - 4 && hidden) {
-        hidden = false;
-        gsap.to(header, { y: 0, duration: 0.35, ease: "power2.out" });
+      const delta = y - lastY;
+      lastY = y;
+
+      if (Math.abs(delta) < JITTER_PX) return;
+
+      // Direction change resets the run — avoids flip-flopping.
+      if (
+        (accumulated > 0 && delta < 0) ||
+        (accumulated < 0 && delta > 0)
+      ) {
+        accumulated = delta;
+      } else {
+        accumulated += delta;
       }
 
-      lastY = y;
+      if (!hidden && accumulated >= HIDE_AFTER_PX) {
+        applyHidden(true);
+        return;
+      }
+
+      if (hidden && accumulated <= -SHOW_AFTER_PX) {
+        applyHidden(false);
+      }
+    };
+
+    const onScroll = (): void => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    update();
 
     return () => {
       window.removeEventListener("scroll", onScroll);

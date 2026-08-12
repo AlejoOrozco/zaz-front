@@ -23,7 +23,7 @@ const copy = {
     message: "Message",
     submit: "Send message",
     submitting: "Sending…",
-    success: "Thanks — your message was received. We'll get back to you soon.",
+    success: "Thanks, your message was received. We'll get back to you soon.",
     rateLimited:
       "Too many messages were sent in a short period. Please wait a few minutes and try again.",
     another: "Send another message",
@@ -39,7 +39,7 @@ const copy = {
     message: "Mensaje",
     submit: "Enviar mensaje",
     submitting: "Enviando…",
-    success: "Gracias — recibimos tu mensaje. Te responderemos pronto.",
+    success: "Gracias, recibimos tu mensaje. Te responderemos pronto.",
     rateLimited:
       "Se enviaron demasiados mensajes en poco tiempo. Espera unos minutos e inténtalo de nuevo.",
     another: "Enviar otro mensaje",

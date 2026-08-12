@@ -14,15 +14,15 @@ const FOUNDER_PORTRAIT = "/images/founder/alejandro.jpeg";
 const copy = {
   en: {
     statement: "You'll work with me, not a queue.",
-    body: "I'm Alejandro Gómez Orozco, founder of zaz. I take your idea personally: I scope it, I build it, and I stand behind it with a money-back guarantee. No account managers, no handoffs — just your idea, built right.",
-    signature: "— Alejandro, founder of zaz",
+    body: "I'm Alejandro Gómez Orozco, founder of zaz. I take your idea personally: I scope it, I build it, and I stand behind it with a money-back guarantee. No account managers, no handoffs, just your idea, built right.",
+    signature: "- Alejandro, founder of zaz",
     cta: "Talk to me directly",
     portraitAlt: "Alejandro Gómez Orozco, founder of zaz",
   },
   es: {
     statement: "Trabajas conmigo, no con un desconocido.",
-    body: "Soy Alejandro Gómez Orozco, fundador de zaz. Tomo tu idea de forma personal: la defino, la construyo y la respaldo con garantía de devolución. Sin gerentes de cuenta, sin traspasos — solo tu idea, bien hecha.",
-    signature: "— Alejandro, fundador de zaz",
+    body: "Soy Alejandro Gómez Orozco, fundador de zaz. Tomo tu idea de forma personal: la defino, la construyo y la respaldo con garantía de devolución. Solo tu idea, bien ejecutada",
+    signature: "Alejandro, fundador de zaz",
     cta: "Háblame directamente",
     portraitAlt: "Alejandro Gómez Orozco, fundador de zaz",
   },

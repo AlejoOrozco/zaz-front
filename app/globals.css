@@ -66,7 +66,11 @@ body {
 
 .header-bar {
   background: transparent;
-  transition: background-color 0.3s ease, backdrop-filter 0.3s ease,
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 0.28s cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 0.3s ease,
+    backdrop-filter 0.3s ease,
     border-color 0.3s ease;
   border-bottom: 1px solid transparent;
 }
@@ -75,6 +79,11 @@ body {
   background: color-mix(in srgb, var(--paper) 78%, transparent);
   backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
+}
+
+.header-bar.header-hidden {
+  transform: translate3d(0, -100%, 0);
+  pointer-events: none;
 }
 
 ::selection {
@@ -88,6 +97,16 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .header-bar {
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .header-bar.header-hidden {
+    transform: none;
+    pointer-events: auto;
   }
 
   .star-btn-glow {
