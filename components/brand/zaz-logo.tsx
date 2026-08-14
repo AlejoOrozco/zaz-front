@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import type { JSX } from "react";
 import { ZazMark } from "@/components/brand/zaz-mark";
 import { cn } from "@/lib/utils";
@@ -13,11 +16,14 @@ interface ZazLogoProps {
  */
 export function ZazLogo({
   className,
-  href = "#top",
+  href,
 }: ZazLogoProps): JSX.Element {
+  const pathname = usePathname();
+  const resolvedHref = href ?? (pathname === "/" ? "#top" : "/");
+
   return (
     <a
-      href={href}
+      href={resolvedHref}
       className={cn(
         "inline-flex items-center gap-2 text-ink transition-opacity hover:opacity-80",
         className,

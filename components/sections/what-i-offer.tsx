@@ -13,20 +13,20 @@ const copy = {
     progressLabel: "Offer progress",
     items: [
       {
-        title: "The best I can do for your budget",
-        body: "You tell me the budget. I tell you what's possible inside it   no open-ended invoices.",
+        title: "Personalized advice and design",
+        body: "I sit with your idea, shape it with you, and design something that fits how you actually work.",
       },
       {
         title: "Don't like it? Your money back",
         body: "If it isn't what we agreed, you don't pay. The risk is on me, not you.",
       },
       {
-        title: "Personalized   and only yours",
-        body: "I don't resell the same software. What you get is unique. You won't see it out there on someone else.",
+        title: "Ongoing maintenance",
+        body: "After launch I stay with it: updates, fixes, and the small things that keep it running.",
       },
       {
-        title: "Something you can really use",
-        body: "I make sure you get what you want   practical, clear, and built to work in your day-to-day.",
+        title: "Infrastructure, handled",
+        body: "You just use the software. I take care of SEO, architecture, hosting, security, and performance.",
       },
     ],
   },
@@ -35,20 +35,20 @@ const copy = {
     progressLabel: "Progreso de la oferta",
     items: [
       {
-        title: "Lo mejor que puedo hacer con tu presupuesto",
-        body: "Tú dices el presupuesto. Yo te digo qué es posible dentro de él   sin facturas abiertas.",
+        title: "Asesoría y diseño personalizado",
+        body: "Me siento con tu idea, la damos forma juntos y diseño algo que encaje con cómo trabajas de verdad.",
       },
       {
         title: "¿No te gusta? Te devuelvo el dinero",
         body: "Si no es lo acordado, no pagas. El riesgo es mío, no tuyo.",
       },
       {
-        title: "Personalizado   y solo tuyo",
-        body: "No revendo el mismo software. Lo que recibes es único. No lo verás en nadie más.",
+        title: "Mantenimiento continuo",
+        body: "Después del lanzamiento sigo ahí: actualizaciones, ajustes y lo pequeño que lo mantiene andando.",
       },
       {
-        title: "Algo que sí puedes usar",
-        body: "Me aseguro de que obtengas lo que quieres   práctico, claro y útil en tu día a día.",
+        title: "Infraestructura, a mi cargo",
+        body: "Tú solo usas el software. Yo me encargo del SEO, la arquitectura, el hosting, la seguridad y el rendimiento.",
       },
     ],
   },

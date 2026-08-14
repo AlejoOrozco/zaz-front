@@ -68,6 +68,17 @@ export function IconLandingPages({ className }: IconProps): JSX.Element {
   );
 }
 
+/** Phone   mobile apps */
+export function IconMobileApps({ className }: IconProps): JSX.Element {
+  return (
+    <IconShell className={className}>
+      <rect x="8" y="3" width="8" height="18" rx="2" />
+      <path d="M11 6h2" />
+      <path d="M11 18.5h2" />
+    </IconShell>
+  );
+}
+
 /** Puzzle   personalized software */
 export function IconPersonalizedSoftware({
   className,
@@ -75,6 +86,17 @@ export function IconPersonalizedSoftware({
   return (
     <IconShell className={className}>
       <path d="M10 4a2 2 0 0 1 4 0v1.2h2.2A2.3 2.3 0 0 1 18.5 7.5V10H19.5a2 2 0 1 1 0 4H18.5v2.5A2.3 2.3 0 0 1 16.2 19H14v1a2 2 0 1 1-4 0v-1H7.8A2.3 2.3 0 0 1 5.5 16.5V14H4.5a2 2 0 1 1 0-4H5.5V7.5A2.3 2.3 0 0 1 7.8 5.2H10V4Z" />
+    </IconShell>
+  );
+}
+
+/** Storefront   shops */
+export function IconShops({ className }: IconProps): JSX.Element {
+  return (
+    <IconShell className={className}>
+      <path d="M4 10.5V19a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-8.5" />
+      <path d="M3.5 7.5 5 4h14l1.5 3.5v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0v-2Z" />
+      <path d="M10 21v-6h4v6" />
     </IconShell>
   );
 }

@@ -14,7 +14,9 @@ import {
   IconAiAgents,
   IconAnimatedPages,
   IconLandingPages,
+  IconMobileApps,
   IconPersonalizedSoftware,
+  IconShops,
   IconWebPages,
 } from "@/components/ui/build-feature-icons";
 import { useSite } from "@/components/shell/site-provider";
@@ -28,6 +30,8 @@ type FeatureId =
   | "animated-web-pages"
   | "web-pages"
   | "landing-pages"
+  | "shops"
+  | "mobile-apps"
   | "personalized-software"
   | "ai-agents";
 
@@ -42,6 +46,8 @@ const FEATURE_IMAGES: Record<FeatureId, string> = {
   "animated-web-pages": "/images/what-we-build/animated-web-pages.webp",
   "web-pages": "/images/what-we-build/web-pages.webp",
   "landing-pages": "/images/what-we-build/landing-pages.webp",
+  shops: "/images/what-we-build/shops.jpg",
+  "mobile-apps": "/images/what-we-build/mobile-apps.jpg",
   "personalized-software": "/images/what-we-build/personalized-software.webp",
   "ai-agents": "/images/what-we-build/ai-agents.webp",
 };
@@ -53,6 +59,8 @@ const FEATURE_ICONS: Record<
   "animated-web-pages": IconAnimatedPages,
   "web-pages": IconWebPages,
   "landing-pages": IconLandingPages,
+  shops: IconShops,
+  "mobile-apps": IconMobileApps,
   "personalized-software": IconPersonalizedSoftware,
   "ai-agents": IconAiAgents,
 };
@@ -86,6 +94,20 @@ const copy = {
         label: "Landing pages",
         description:
           "Focused pages built to launch offers, waitlists, and campaigns.",
+      },
+      {
+        id: "shops",
+        phrase: "shops",
+        label: "Shops",
+        description:
+          "Storefronts that sell with presence, from catalog to checkout.",
+      },
+      {
+        id: "mobile-apps",
+        phrase: "mobile apps",
+        label: "Mobile apps",
+        description:
+          "Apps that feel native in the hand, calm, clear, and useful.",
       },
       {
         id: "personalized-software",
@@ -130,6 +152,20 @@ const copy = {
           "Páginas enfocadas para lanzar ofertas, listas y campañas.",
       },
       {
+        id: "shops",
+        phrase: "tiendas",
+        label: "Tiendas",
+        description:
+          "Tiendas que venden con presencia, del catálogo al checkout.",
+      },
+      {
+        id: "mobile-apps",
+        phrase: "apps para móviles",
+        label: "Apps para móviles",
+        description:
+          "Apps que se sienten nativas en la mano, claras, útiles, sin ruido.",
+      },
+      {
         id: "personalized-software",
         phrase: "software a la medida",
         label: "Software a la medida",
@@ -159,7 +195,7 @@ function GlowPreview({
   return (
     <div className="build-glow-frame relative w-full">
       {/* ~2:1 matches the screenshots so contain fills the frame; radius clips all corners */}
-      <div className="build-glow-mask relative aspect-[2/1] w-full overflow-hidden rounded-2xl">
+      <div className="build-glow-mask relative aspect-[16/9] w-full min-h-[16rem] sm:min-h-[20rem] lg:min-h-[23rem]">
         {features.map((feature) => {
           const isActive = feature.id === activeId;
           return (
@@ -168,9 +204,9 @@ function GlowPreview({
               src={FEATURE_IMAGES[feature.id]}
               alt={feature.label}
               fill
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 1024px) 100vw, 62vw"
               className={cn(
-                "rounded-2xl object-contain object-center transition-opacity duration-500 ease-out",
+                "object-cover object-left-top transition-opacity duration-500 ease-out",
                 isActive ? "opacity-100" : "opacity-0",
               )}
               priority={feature.id === features[0].id}
@@ -277,7 +313,7 @@ export function WhatWeBuild(): JSX.Element {
           {t.headline}
         </h2>
 
-        <div className="mt-12 grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
           <div data-build-reveal className="min-w-0">
             <p
               className="text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium leading-[1.45] tracking-tight"
@@ -331,7 +367,10 @@ export function WhatWeBuild(): JSX.Element {
             </div>
           </div>
 
-          <div data-build-reveal className="min-w-0 lg:sticky lg:top-28">
+          <div
+            data-build-reveal
+            className="min-w-0 lg:sticky lg:top-24 lg:-mr-4 xl:-mr-8"
+          >
             <GlowPreview features={t.features} activeId={active.id} />
           </div>
         </div>

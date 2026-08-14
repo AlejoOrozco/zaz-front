@@ -518,7 +518,7 @@ export function Booking(): JSX.Element {
                       {t.formTitle}
                     </h3>
                     <p className="text-sm text-ink-2">
-                      {t.selected}: {formatSelectedDay(date, locale)} ·{" "}
+                      {t.selected}: {formatSelectedDay(date, locale)} {" "}
                       {formatSlotLabel(selectedSlot.startAt, locale)}
                     </p>
                     <Field

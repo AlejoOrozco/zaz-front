@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import type { JSX } from "react";
 import { useSite } from "@/components/shell/site-provider";
 import { ZazLogo } from "@/components/brand/zaz-logo";
@@ -15,7 +16,9 @@ const copy = {
     offer: "What I offer",
     founder: "Founder",
     book: "Book a call",
-    founded: "Founded by Alejandro Gómez Orozco",
+    founded: "Founded by Alejandro Gómez Orozco.",
+    copyright: "All rights reserved.",
+    privacy: "Personal data policy",
   },
   es: {
     tagline: "Tus ideas en software.",
@@ -26,7 +29,9 @@ const copy = {
     offer: "Lo que ofrezco",
     founder: "Fundador",
     book: "Agenda una llamada",
-    founded: "Fundada por Alejandro Gómez Orozco",
+    founded: "Fundada por Alejandro Gómez Orozco.",
+    copyright: "Todos los derechos reservados.",
+    privacy: "Política de tratamiento de datos personales",
   },
 } as const;
 
@@ -34,6 +39,9 @@ export function Footer(): JSX.Element {
   const { locale, setLocale } = useSite();
   const t = copy[locale];
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const homeHref = (hash: string): string => (isHome ? hash : `/${hash}`);
 
   return (
     <footer className="relative overflow-hidden border-t border-line">
@@ -54,32 +62,32 @@ export function Footer(): JSX.Element {
         </div>
 
         <div>
-          <p className="font-mono text-[0.75rem] uppercase tracking-[0.14em] text-ink-3">
+          <p className="font-sans text-[0.75rem] uppercase tracking-[0.14em] text-ink-3">
             {t.navigate}
           </p>
           <ul className="mt-4 space-y-2 text-sm text-ink-2">
             <li>
-              <a href="#why" className="transition-colors hover:text-ink">
+              <a href={homeHref("#why")} className="transition-colors hover:text-ink">
                 {t.why}
               </a>
             </li>
             <li>
-              <a href="#build" className="transition-colors hover:text-ink">
+              <a href={homeHref("#build")} className="transition-colors hover:text-ink">
                 {t.build}
               </a>
             </li>
             <li>
-              <a href="#offer" className="transition-colors hover:text-ink">
+              <a href={homeHref("#offer")} className="transition-colors hover:text-ink">
                 {t.offer}
               </a>
             </li>
             <li>
-              <a href="#founder" className="transition-colors hover:text-ink">
+              <a href={homeHref("#founder")} className="transition-colors hover:text-ink">
                 {t.founder}
               </a>
             </li>
             <li>
-              <a href="#book" className="transition-colors hover:text-ink">
+              <a href={homeHref("#book")} className="transition-colors hover:text-ink">
                 {t.book}
               </a>
             </li>
@@ -87,17 +95,17 @@ export function Footer(): JSX.Element {
         </div>
 
         <div>
-          <p className="font-mono text-[0.75rem] uppercase tracking-[0.14em] text-ink-3">
+          <p className="font-sans text-[0.75rem] uppercase tracking-[0.14em] text-ink-3">
             {t.contact}
           </p>
           <ul className="mt-4 space-y-2 text-sm text-ink-2">
             <li>
-              <a href="#contact" className="transition-colors hover:text-ink">
+              <a href={homeHref("#contact")} className="transition-colors hover:text-ink">
                 {t.contact}
               </a>
             </li>
             <li>
-              <a href="#book" className="transition-colors hover:text-ink">
+              <a href={homeHref("#book")} className="transition-colors hover:text-ink">
                 {t.book}
               </a>
             </li>
@@ -132,13 +140,21 @@ export function Footer(): JSX.Element {
       </div>
 
       <div className="relative border-t border-line">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-2 px-6 py-6 text-sm text-ink-3 md:flex-row md:items-center md:justify-between md:px-8">
+        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-3 px-6 py-6 text-sm text-ink-3 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
           <p>
-            © {year} zaz   {t.founded}
+            © {year} zaz. {t.copyright} {t.founded}
           </p>
-          <a href="#top" className="transition-colors hover:text-ink">
-            ↑ Top
-          </a>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <a
+              href="/privacy"
+              className="underline-offset-4 transition-colors hover:text-ink hover:underline"
+            >
+              {t.privacy}
+            </a>
+            <a href={isHome ? "#top" : "/"} className="transition-colors hover:text-ink">
+              ↑ Top
+            </a>
+          </div>
         </div>
       </div>
     </footer>

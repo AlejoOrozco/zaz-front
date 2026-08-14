@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type JSX } from "react";
+import { usePathname } from "next/navigation";
 import { useSite } from "@/components/shell/site-provider";
 import { BookCallButton } from "@/components/ui/book-call-button";
 import { ZazLogo } from "@/components/brand/zaz-logo";
@@ -28,6 +29,9 @@ export function Header(): JSX.Element {
   const { locale, setLocale, theme, toggleTheme } = useSite();
   const t = copy[locale];
   const headerRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const homeHref = (hash: string): string => (isHome ? hash : `/${hash}`);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -142,19 +146,19 @@ export function Header(): JSX.Element {
           className="hidden items-center gap-2 text-sm text-ink-2 md:flex"
           aria-label="Primary"
         >
-          <a href="#why" className="px-2 transition-colors hover:text-ink">
+          <a href={homeHref("#why")} className="px-2 transition-colors hover:text-ink">
             {t.why}
           </a>
           <span className="text-ink-3" aria-hidden="true">
-            ·
+            
           </span>
-          <a href="#build" className="px-2 transition-colors hover:text-ink">
+          <a href={homeHref("#build")} className="px-2 transition-colors hover:text-ink">
             {t.build}
           </a>
           <span className="text-ink-3" aria-hidden="true">
-            ·
+            
           </span>
-          <a href="#offer" className="px-2 transition-colors hover:text-ink">
+          <a href={homeHref("#offer")} className="px-2 transition-colors hover:text-ink">
             {t.offer}
           </a>
         </nav>
@@ -192,7 +196,7 @@ export function Header(): JSX.Element {
           </button>
 
           <BookCallButton
-            href="#book"
+            href={homeHref("#book")}
             className="hidden md:inline-flex"
           >
             {t.book}
