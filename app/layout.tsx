@@ -3,6 +3,7 @@ import type { JSX } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteProvider } from "@/components/shell/site-provider";
 import { MotionProvider } from "@/components/motion/motion-provider";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "zaz   Your ideas into software",
   description:
     "Save time, automate your work, and ease your workflow all within your budget.",
