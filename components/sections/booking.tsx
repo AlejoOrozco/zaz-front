@@ -18,9 +18,13 @@ import {
   createMeeting,
   fetchAvailability,
 } from "@/lib/api/client";
+import { RecaptchaNotice } from "@/components/recaptcha/recaptcha-notice";
+import { useRecaptchaToken } from "@/components/recaptcha/use-recaptcha-token";
 import type { AvailabilitySlot } from "@/lib/booking/availability";
 import { FadeSwap } from "@/components/motion/fade-swap";
+import { PrivacyConsent } from "@/components/legal/privacy-consent";
 import { useSite, type Locale } from "@/components/shell/site-provider";
+import { RECAPTCHA_ACTIONS } from "@/lib/recaptcha/config";
 import { cn } from "@/lib/utils";
 import {
   digitsOnly,
@@ -40,6 +44,12 @@ const copy = {
       "Too many booking attempts were made in a short period. Please wait a few minutes and try again.",
     availabilityRateLimited:
       "Please wait a moment before loading more times.",
+    recaptchaUnavailable:
+      "We couldn't verify this request. Reload the page and try again.",
+    recaptchaRejected:
+      "We couldn't verify this request. Please try again in a few minutes.",
+    privacyRequired:
+      "Accept the personal data policy to continue.",
     slotTaken:
       "That time was just taken. Please choose another available time.",
     name: "Name",
@@ -66,6 +76,12 @@ const copy = {
       "Se hicieron demasiados intentos en poco tiempo. Espera unos minutos e inténtalo de nuevo.",
     availabilityRateLimited:
       "Espera un momento antes de cargar más horarios.",
+    recaptchaUnavailable:
+      "No pudimos verificar la solicitud. Recarga la página e inténtalo de nuevo.",
+    recaptchaRejected:
+      "No pudimos verificar la solicitud. Inténtalo de nuevo en unos minutos.",
+    privacyRequired:
+      "Acepta la política de tratamiento de datos personales para continuar.",
     slotTaken:
       "Ese horario acaba de ocuparse. Elige otro disponible.",
     name: "Nombre",
@@ -189,6 +205,7 @@ function buildMonthGrid(
 export function Booking(): JSX.Element {
   const { locale } = useSite();
   const t = copy[locale];
+  const { getRecaptchaToken } = useRecaptchaToken();
 
   const today = useMemo(() => formatBogotaToday(), []);
   const maxDate = useMemo(
@@ -208,6 +225,8 @@ export function Booking(): JSX.Element {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<
     Partial<Record<PersonFieldKey, string>>
   >({});
@@ -303,8 +322,10 @@ export function Booking(): JSX.Element {
       { name, email, phone },
       t.fields,
     );
+    const nextPrivacyError = privacyAccepted ? null : t.privacyRequired;
     setFieldErrors(nextFieldErrors);
-    if (Object.keys(nextFieldErrors).length > 0) {
+    setPrivacyError(nextPrivacyError);
+    if (Object.keys(nextFieldErrors).length > 0 || nextPrivacyError) {
       setError(null);
       return;
     }
@@ -313,11 +334,19 @@ export function Booking(): JSX.Element {
     setError(null);
 
     try {
+      const recaptchaToken = await getRecaptchaToken(RECAPTCHA_ACTIONS.meeting);
+      if (!recaptchaToken) {
+        setError(t.recaptchaUnavailable);
+        return;
+      }
+
       const result = await createMeeting({
         name: name.trim(),
         email: email.trim(),
         phone: phone.trim(),
         startAt: selectedSlot.startAt,
+        recaptchaToken,
+        privacyConsent: true,
       });
       const bookedStart = selectedSlot.startAt;
       setSlots((current) =>
@@ -331,6 +360,8 @@ export function Booking(): JSX.Element {
       setName("");
       setEmail("");
       setPhone("");
+      setPrivacyAccepted(false);
+      setPrivacyError(null);
       setFieldErrors({});
       try {
         await refreshSlots();
@@ -349,6 +380,8 @@ export function Booking(): JSX.Element {
           }
         } else if (err.status === 429) {
           setError(t.rateLimited);
+        } else if (err.status === 403) {
+          setError(t.recaptchaRejected);
         } else if (err.status === 400 && err.body.details) {
           const fromApi: Partial<Record<PersonFieldKey, string>> = {};
           for (const key of ["name", "email", "phone"] as const) {
@@ -358,6 +391,11 @@ export function Booking(): JSX.Element {
           if (Object.keys(fromApi).length > 0) {
             setFieldErrors(fromApi);
             setError(null);
+          } else if (err.body.details.privacyConsent) {
+            setPrivacyError(t.privacyRequired);
+            setError(null);
+          } else if (err.body.details.recaptchaToken) {
+            setError(t.recaptchaUnavailable);
           } else {
             setError(err.body.message);
           }
@@ -565,13 +603,25 @@ export function Booking(): JSX.Element {
                       </p>
                     ) : null}
 
+                    <PrivacyConsent
+                      inputId="booking-privacy-consent"
+                      errorId="booking-privacy-error"
+                      checked={privacyAccepted}
+                      error={privacyError ?? undefined}
+                      onCheckedChange={(value) => {
+                        setPrivacyAccepted(value);
+                        if (value) setPrivacyError(null);
+                      }}
+                    />
+
                     <button
                       type="submit"
-                      disabled={submitting}
+                      disabled={submitting || !privacyAccepted}
                       className="mt-2 inline-flex h-11 w-full items-center justify-center rounded-full bg-ink px-6 text-sm font-medium text-paper transition-opacity active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto sm:min-w-[12rem]"
                     >
                       {submitting ? t.submitting : t.submit}
                     </button>
+                    <RecaptchaNotice className="text-ink-3" />
                   </form>
               ) : null}
 

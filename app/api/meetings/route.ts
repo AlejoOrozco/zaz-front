@@ -9,8 +9,10 @@ import {
   validationError,
 } from "@/lib/api/http";
 import { sendMeetingNotification } from "@/lib/email/resend";
+import { recaptchaGuard } from "@/lib/api/recaptcha";
+import { RECAPTCHA_ACTIONS } from "@/lib/recaptcha/config";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { createMeetingSchema } from "@/lib/validation/meetings";
+import { createMeetingRequestSchema } from "@/lib/validation/meetings";
 
 export async function POST(request: Request): Promise<Response> {
   const ip = getClientIp(request);
@@ -29,7 +31,7 @@ export async function POST(request: Request): Promise<Response> {
     });
   }
 
-  const parsed = createMeetingSchema.safeParse(body);
+  const parsed = createMeetingRequestSchema.safeParse(body);
   if (!parsed.success) {
     const details: Record<string, string[]> = {};
     for (const issue of parsed.error.issues) {
@@ -39,7 +41,21 @@ export async function POST(request: Request): Promise<Response> {
     return validationError(details);
   }
 
-  const rules = validateMeetingRequest(parsed.data.startAt);
+  const recaptchaToken = parsed.data.recaptchaToken;
+  const meeting = {
+    name: parsed.data.name,
+    email: parsed.data.email,
+    phone: parsed.data.phone,
+    startAt: parsed.data.startAt,
+  };
+  const recaptchaError = await recaptchaGuard({
+    token: recaptchaToken,
+    expectedAction: RECAPTCHA_ACTIONS.meeting,
+    remoteIp: ip,
+  });
+  if (recaptchaError) return recaptchaError;
+
+  const rules = validateMeetingRequest(meeting.startAt);
   if (!rules.ok) {
     return jsonError(400, {
       error: rules.code,
@@ -48,9 +64,9 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const reserved = await reserveMeeting({
-    name: parsed.data.name,
-    email: parsed.data.email,
-    phone: parsed.data.phone,
+    name: meeting.name,
+    email: meeting.email,
+    phone: meeting.phone,
     startAt: rules.startAt,
     endAt: rules.endAt,
     expiresAt: rules.expiresAt,
@@ -72,9 +88,9 @@ export async function POST(request: Request): Promise<Response> {
 
   try {
     await sendMeetingNotification({
-      name: parsed.data.name,
-      email: parsed.data.email,
-      phone: parsed.data.phone,
+      name: meeting.name,
+      email: meeting.email,
+      phone: meeting.phone,
       whenLabel: formatBogotaRangeLabel(rules.startAt, rules.endAt),
       startAtIso: formatBogotaOffsetIso(rules.startAt),
       endAtIso: formatBogotaOffsetIso(rules.endAt),

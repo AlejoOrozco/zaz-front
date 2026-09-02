@@ -4,6 +4,8 @@ import {
   nameFieldSchema,
   phoneFieldSchema,
 } from "@/lib/validation/fields";
+import { privacyConsentSchema } from "@/lib/validation/privacy-consent";
+import { recaptchaTokenSchema } from "@/lib/validation/recaptcha";
 
 /** ISO-8601 datetime with offset, e.g. 2026-08-15T15:00:00-05:00 */
 const startAtSchema = z
@@ -19,6 +21,11 @@ export const createMeetingSchema = z.object({
   email: emailFieldSchema,
   phone: phoneFieldSchema,
   startAt: startAtSchema,
+});
+
+export const createMeetingRequestSchema = createMeetingSchema.extend({
+  recaptchaToken: recaptchaTokenSchema,
+  privacyConsent: privacyConsentSchema,
 });
 
 /** Calendar date in America/Bogota, YYYY-MM-DD */

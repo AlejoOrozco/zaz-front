@@ -7,8 +7,10 @@ import {
   validationError,
 } from "@/lib/api/http";
 import { sendContactNotification } from "@/lib/email/resend";
+import { recaptchaGuard } from "@/lib/api/recaptcha";
+import { RECAPTCHA_ACTIONS } from "@/lib/recaptcha/config";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { createContactSchema } from "@/lib/validation/contact";
+import { createContactRequestSchema } from "@/lib/validation/contact";
 
 export async function POST(request: Request): Promise<Response> {
   const ip = getClientIp(request);
@@ -27,7 +29,7 @@ export async function POST(request: Request): Promise<Response> {
     });
   }
 
-  const parsed = createContactSchema.safeParse(body);
+  const parsed = createContactRequestSchema.safeParse(body);
   if (!parsed.success) {
     const details: Record<string, string[]> = {};
     for (const issue of parsed.error.issues) {
@@ -37,7 +39,21 @@ export async function POST(request: Request): Promise<Response> {
     return validationError(details);
   }
 
-  const created = await createContactMessage(parsed.data);
+  const recaptchaToken = parsed.data.recaptchaToken;
+  const contact = {
+    name: parsed.data.name,
+    email: parsed.data.email,
+    phone: parsed.data.phone,
+    message: parsed.data.message,
+  };
+  const recaptchaError = await recaptchaGuard({
+    token: recaptchaToken,
+    expectedAction: RECAPTCHA_ACTIONS.contact,
+    remoteIp: ip,
+  });
+  if (recaptchaError) return recaptchaError;
+
+  const created = await createContactMessage(contact);
   if (!created.ok) {
     return jsonError(500, {
       error: "INTERNAL_ERROR",
@@ -47,7 +63,7 @@ export async function POST(request: Request): Promise<Response> {
 
   try {
     await sendContactNotification({
-      ...parsed.data,
+      ...contact,
       messageId: created.id,
     });
   } catch (error) {

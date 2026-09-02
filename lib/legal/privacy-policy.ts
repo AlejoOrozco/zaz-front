@@ -54,7 +54,7 @@ export const privacyPolicyByLocale: Record<"en" | "es", PrivacyPolicyCopy> = {
       {
         heading: "3. Autorización para el tratamiento de datos personales",
         paragraphs: [
-          "zaz, al momento de la recolección de Datos Personales, solicitará una autorización a los Titulares, informando las finalidades específicas del Tratamiento para las cuales se obtiene dicho consentimiento. En este sitio, esa autorización se otorga al enviar un mensaje o una solicitud de reunión.",
+          "zaz, al momento de la recolección de Datos Personales, solicitará una autorización a los Titulares, informando las finalidades específicas del Tratamiento para las cuales se obtiene dicho consentimiento. En este sitio, esa autorización se otorga al marcar la casilla de consentimiento y enviar un mensaje o una solicitud de reunión.",
         ],
       },
       {
@@ -81,13 +81,14 @@ export const privacyPolicyByLocale: Record<"en" | "es", PrivacyPolicyCopy> = {
         heading: "5. Tipo de Datos Personales que son incluidos en las bases de datos",
         paragraphs: [
           "Los datos recolectados por zaz a través de este sitio son, principalmente: nombre, correo electrónico, teléfono y el contenido del mensaje o de la solicitud de reunión. En el curso de una relación comercial podrán incluirse otros datos necesarios para prestar el servicio, como ocupación, empresa o información de facturación.",
+          "Este sitio usa Google reCAPTCHA v3 para distinguir envíos humanos de tráfico automatizado en los formularios. Google puede recopilar datos técnicos del dispositivo y del navegador, y esa información se envía a Google LLC (Estados Unidos) para su análisis. El uso de reCAPTCHA está sujeto a la Política de Privacidad y a los Términos del Servicio de Google.",
         ],
       },
       {
         heading: "6. Procedimientos para el tratamiento de los datos personales",
         paragraphs: [
           "Los Datos Personales incluidos en las bases de datos de zaz provienen de la información recopilada en ejercicio de actividades comerciales, contractuales o de cualquier otra índole con usuarios, clientes, proveedores y el público en general.",
-          "En este sitio, la recolección se realiza a través de los formularios de contacto y de reserva de reunión. Esa actividad supone la autorización previa, expresa e informada del Titular.",
+          "En este sitio, la recolección se realiza a través de los formularios de contacto y de reserva de reunión. El Titular otorga autorización previa, expresa e informada al marcar la casilla de consentimiento en esos formularios.",
         ],
       },
       {
@@ -193,7 +194,7 @@ export const privacyPolicyByLocale: Record<"en" | "es", PrivacyPolicyCopy> = {
       {
         heading: "3. Authorization for the processing of personal data",
         paragraphs: [
-          "When collecting Personal Data, zaz will request authorization from the Data Subject and inform the specific purposes of the Processing. On this site, that authorization is given when you send a message or a meeting request.",
+          "When collecting Personal Data, zaz will request authorization from the Data Subject and inform the specific purposes of the Processing. On this site, that authorization is given when you check the consent box and send a message or a meeting request.",
         ],
       },
       {
@@ -220,13 +221,14 @@ export const privacyPolicyByLocale: Record<"en" | "es", PrivacyPolicyCopy> = {
         heading: "5. Types of Personal Data included in the databases",
         paragraphs: [
           "Data collected by zaz through this site are mainly: name, email, phone, and the content of the message or meeting request. In the course of a commercial relationship, other data needed to provide the service may be included, such as occupation, company, or billing information.",
+          "This site uses Google reCAPTCHA v3 to tell human submissions from automated traffic on the forms. Google may collect technical data about the device and browser, and that information is sent to Google LLC (United States) for analysis. Use of reCAPTCHA is subject to Google’s Privacy Policy and Terms of Service.",
         ],
       },
       {
         heading: "6. Procedures for processing personal data",
         paragraphs: [
           "Personal Data in zaz’s databases come from information gathered through commercial, contractual, or other relationships with users, clients, suppliers, and the public.",
-          "On this site, collection happens through the contact and meeting-request forms. That activity implies the Data Subject’s prior, express, and informed authorization.",
+          "On this site, collection happens through the contact and meeting-request forms. The Data Subject gives prior, express, and informed authorization by checking the consent box on those forms.",
         ],
       },
       {

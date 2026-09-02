@@ -42,6 +42,8 @@ export async function createMeeting(input: {
   email: string;
   phone: string;
   startAt: string;
+  recaptchaToken: string;
+  privacyConsent: true;
 }): Promise<{
   id: string;
   status: string;
@@ -71,6 +73,8 @@ export async function createContact(input: {
   email: string;
   phone: string;
   message: string;
+  recaptchaToken: string;
+  privacyConsent: true;
 }): Promise<{ id: string; message: string }> {
   const response = await fetch("/api/contact", {
     method: "POST",

@@ -18,7 +18,6 @@ const copy = {
     book: "Book a call",
     founded: "Founded by Alejandro Gómez Orozco.",
     copyright: "All rights reserved.",
-    privacy: "Personal data policy",
   },
   es: {
     tagline: "Tus ideas en software.",
@@ -31,7 +30,6 @@ const copy = {
     book: "Agenda una llamada",
     founded: "Fundada por Alejandro Gómez Orozco.",
     copyright: "Todos los derechos reservados.",
-    privacy: "Política de tratamiento de datos personales",
   },
 } as const;
 
@@ -140,21 +138,16 @@ export function Footer(): JSX.Element {
       </div>
 
       <div className="relative border-t border-line">
-        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-3 px-6 py-6 text-sm text-ink-3 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
-          <p>
+        <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-3 px-6 pt-6 pb-32 text-sm text-ink-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:px-8">
+          <p className="max-w-3xl text-pretty leading-relaxed">
             © {year} zaz. {t.copyright} {t.founded}
           </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <a
-              href="/privacy"
-              className="underline-offset-4 transition-colors hover:text-ink hover:underline"
-            >
-              {t.privacy}
-            </a>
-            <a href={isHome ? "#top" : "/"} className="transition-colors hover:text-ink">
-              ↑ Top
-            </a>
-          </div>
+          <a
+            href={isHome ? "#top" : "/"}
+            className="shrink-0 transition-colors hover:text-ink"
+          >
+            ↑ Top
+          </a>
         </div>
       </div>
     </footer>

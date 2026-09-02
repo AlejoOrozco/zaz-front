@@ -8,6 +8,7 @@ import { WhyZaz } from "@/components/sections/why-zaz";
 import { WhatWeBuild } from "@/components/sections/what-we-build";
 import { WhatIOffer } from "@/components/sections/what-i-offer";
 import { Founder } from "@/components/sections/founder";
+import { RecaptchaProvider } from "@/components/recaptcha/recaptcha-provider";
 import { Contact } from "@/components/sections/contact";
 import { Booking } from "@/components/sections/booking";
 
@@ -23,8 +24,10 @@ export default function Home(): JSX.Element {
         <WhatWeBuild />
         <WhatIOffer />
         <Founder />
-        <Booking />
-        <Contact />
+        <RecaptchaProvider>
+          <Booking />
+          <Contact />
+        </RecaptchaProvider>
       </main>
       <Footer />
     </>
